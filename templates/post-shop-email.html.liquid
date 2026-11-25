@@ -1,0 +1,14 @@
+{% assign saving = {{api_trigger_properties.${savings_display}}} %}
+{% assign items = {{api_trigger_properties.${items}}} %}
+<p>Hi {{${first_name} | default: "there" | escape}},</p>
+{% if saving != blank %}<p>You saved {{ saving | escape }} on M&amp;S.</p>{% endif %}
+{% assign has_snacks = false %}
+{% for item in items %}
+  {% if item.category == "Snacks" and item.substituted == false %}
+    {% assign has_snacks = true %}
+  {% endif %}
+{% endfor %}
+{% assign product = {{api_trigger_properties.${recommendation_name}}} %}
+{% if has_snacks and product != blank %}
+  <p>Try {{ product | escape }} with your snacks.</p>
+{% endif %}

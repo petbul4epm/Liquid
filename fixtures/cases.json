@@ -1,0 +1,302 @@
+{
+  "01-name": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {},
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,"
+      ]
+    }
+  },
+  "01-missing-name": {
+    "profile": {},
+    "trigger_properties": {},
+    "expected": {
+      "visible_paragraphs": [
+        "Hi there,"
+      ]
+    }
+  },
+  "01-escaped-name": {
+    "profile": {
+      "first_name": "Sam & <Jo>"
+    },
+    "trigger_properties": {},
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Sam & <Jo>,"
+      ],
+      "html_contains": [
+        "Sam &amp; &lt;Jo&gt;"
+      ]
+    }
+  },
+  "02-formatted": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "savings_display": "£12.20"
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,",
+        "You saved £12.20 on M&S."
+      ]
+    }
+  },
+  "02-missing": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {},
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,"
+      ]
+    }
+  },
+  "02-blank": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "savings_display": ""
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,"
+      ]
+    }
+  },
+  "02-zero": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "savings_display": "£0.00"
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,",
+        "You saved £0.00 on M&S."
+      ]
+    }
+  },
+  "02-unformatted": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "savings_display": "12.2"
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,",
+        "You saved 12.2 on M&S."
+      ]
+    }
+  },
+  "03-match-later": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "recommendation_name": "M&S Luxury Tea",
+      "items": [
+        {
+          "category": "Produce",
+          "substituted": false
+        },
+        {
+          "category": "Snacks",
+          "substituted": false
+        }
+      ]
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,",
+        "Try M&S Luxury Tea with your snacks."
+      ]
+    }
+  },
+  "03-substituted-only": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "recommendation_name": "M&S Luxury Tea",
+      "items": [
+        {
+          "category": "Snacks",
+          "substituted": true
+        }
+      ]
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,"
+      ]
+    }
+  },
+  "03-empty": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "recommendation_name": "M&S Luxury Tea",
+      "items": []
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,"
+      ]
+    }
+  },
+  "03-missing-items": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "recommendation_name": "M&S Luxury Tea"
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,"
+      ]
+    }
+  },
+  "03-string-boolean": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "recommendation_name": "M&S Luxury Tea",
+      "items": [
+        {
+          "category": "Snacks",
+          "substituted": "false"
+        }
+      ]
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,"
+      ]
+    }
+  },
+  "04-both-present": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "items": [
+        {
+          "category": "Snacks",
+          "substituted": false
+        }
+      ],
+      "recommendation_name": "M&S Luxury Tea"
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,",
+        "Try M&S Luxury Tea with your snacks."
+      ]
+    }
+  },
+  "04-no-product": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "items": [
+        {
+          "category": "Snacks",
+          "substituted": false
+        }
+      ]
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,"
+      ]
+    }
+  },
+  "04-no-snack": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "items": [
+        {
+          "category": "Produce",
+          "substituted": false
+        }
+      ],
+      "recommendation_name": "M&S Luxury Tea"
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,"
+      ]
+    }
+  },
+  "04-escaped-product": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "items": [
+        {
+          "category": "Snacks",
+          "substituted": false
+        }
+      ],
+      "recommendation_name": "Tea & <Biscuits>"
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,",
+        "Try Tea & <Biscuits> with your snacks."
+      ],
+      "html_contains": [
+        "Tea &amp; &lt;Biscuits&gt;"
+      ]
+    }
+  },
+  "05-complete": {
+    "profile": {
+      "first_name": "Alex"
+    },
+    "trigger_properties": {
+      "savings_display": "£12.20",
+      "items": [
+        {
+          "category": "Snacks",
+          "substituted": false
+        }
+      ],
+      "recommendation_name": "M&S Luxury Tea"
+    },
+    "expected": {
+      "visible_paragraphs": [
+        "Hi Alex,",
+        "You saved £12.20 on M&S.",
+        "Try M&S Luxury Tea with your snacks."
+      ]
+    }
+  },
+  "05-minimal": {
+    "profile": {},
+    "trigger_properties": {},
+    "expected": {
+      "visible_paragraphs": [
+        "Hi there,"
+      ]
+    }
+  }
+}
